@@ -12,7 +12,7 @@ class ClassGenerator(docString: String, isEnMethodSelected: Boolean, isRuMethodS
         isRuSelecled = isRuMethodSelected
     }
 
-    fun getContext() : String {
+    fun getContext(): String {
         context += getImport()
         context += getPythonClass()
         context += getLatexQuestionWriter()
@@ -20,8 +20,8 @@ class ClassGenerator(docString: String, isEnMethodSelected: Boolean, isRuMethodS
         return context
     }
 
-    private fun getImport() : String {
-        return "from all_imports import *\n"
+    private fun getImport(): String {
+        return "from all_imports import *\n\n"
     }
 
     private fun getPythonClass(): String {
@@ -34,7 +34,7 @@ class ClassGenerator(docString: String, isEnMethodSelected: Boolean, isRuMethodS
                 "        return Problem()\n\n"
     }
 
-    private fun getLatexQuestionWriter() : String {
+    private fun getLatexQuestionWriter(): String {
         var res = "    def write_question_tex(self):\n" +
                 "        content = \"\"\n" +
                 "        return content\n\n"

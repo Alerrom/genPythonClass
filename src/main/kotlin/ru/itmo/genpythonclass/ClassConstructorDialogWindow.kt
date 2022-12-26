@@ -5,12 +5,16 @@ import com.intellij.openapi.ui.DialogWrapper
 import java.io.File
 import javax.swing.*
 
-class ClassConstructorDialogWindow(private var project: Project?) : DialogWrapper(project) {
-    private var dirPath: JTextField? = null
+
+class ClassConstructorDialogWindow(project: Project?) : DialogWrapper(project) {
+    private var fileName: JTextField? = null
     private var contentPanel: JPanel? = null
     private var docString: JTextArea? = null
     private var addEnglishTexMethod: JRadioButton? = null
     private var addRussianTexMethod: JRadioButton? = null
+    private var fileNameLabel: JLabel? = null
+    private var taskDescLabel: JLabel? = null
+    private var dirLabel: JLabel? = null
 
     init {
         init()
@@ -20,11 +24,20 @@ class ClassConstructorDialogWindow(private var project: Project?) : DialogWrappe
         return contentPanel
     }
 
-    fun save() {
-        val file = File(dirPath!!.text)
-        val text = ClassGenerator(docString!!.text,
+    fun save(dirName: String) {
+        var path = dirName
+        path += if (dirName[dirName.length - 1].equals("\\")) {
+            fileName!!.text
+        } else {
+            "\\" + fileName!!.text
+        }
+
+        val file = File(path)
+        val text = ClassGenerator(
+            docString!!.text,
             addEnglishTexMethod!!.isSelected,
-            addRussianTexMethod!!.isSelected).getContext()
+            addRussianTexMethod!!.isSelected
+        ).getContext()
 
         file.writeText(text)
     }
